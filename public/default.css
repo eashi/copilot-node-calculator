@@ -6,6 +6,10 @@ BODY {
     background-color: #1b4076;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 @media screen and (min-device-width: 500px) and (min-device-height: 1024px) {
     BODY {
         transform: scale(1.75);
@@ -33,6 +37,14 @@ BODY {
     background-size: 300px 531px;
     background-repeat: no-repeat;
     background-position: center top;
+}
+
+@media screen and (max-width: 380px) {
+    .container {
+        transform: scale(0.92);
+        transform-origin: 50% 0;
+        width: 100%;
+    }
 }
 
 #results {
@@ -183,4 +195,9 @@ BODY {
     border: 1px solid black;
     background-color: #d5d5d5;
     margin: 4px;
+}
+
+.btn:focus-visible {
+    outline: 3px solid #0d6efd;
+    outline-offset: 2px;
 }

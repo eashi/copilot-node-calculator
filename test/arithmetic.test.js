@@ -93,7 +93,48 @@ describe('Arithmetic', function () {
         });
     });
 
-// TODO: Challenge #1
+    describe('Subtraction', function () {
+        it('subtracts two positive integers', function (done) {
+            request.get('/arithmetic?operation=subtract&operand1=84&operand2=42')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 42 });
+                    done();
+                });
+        });
+        it('subtracts zero from an integer', function (done) {
+            request.get('/arithmetic?operation=subtract&operand1=42&operand2=0')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 42 });
+                    done();
+                });
+        });
+        it('subtracts a larger integer from a smaller integer', function (done) {
+            request.get('/arithmetic?operation=subtract&operand1=21&operand2=42')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: -21 });
+                    done();
+                });
+        });
+        it('subtracts a negative integer', function (done) {
+            request.get('/arithmetic?operation=subtract&operand1=21&operand2=-21')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 42 });
+                    done();
+                });
+        });
+        it('subtracts floating point values', function (done) {
+            request.get('/arithmetic?operation=subtract&operand1=2.75&operand2=0.25')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 2.5 });
+                    done();
+                });
+        });
+    });
  
 
     describe('Multiplication', function () {
@@ -188,7 +229,7 @@ describe('Arithmetic', function () {
                     done();
                 });
         });
-        it('divides by zero', function (done) {
+        it('divides decimal values', function (done) {
             request.get('/arithmetic?operation=divide&operand1=0.5&operand2=2')
                 .expect(200)
                 .end(function (err, res) {

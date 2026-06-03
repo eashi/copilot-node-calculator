@@ -1,5 +1,15 @@
 'use strict';
 
+function parseOperand(value, name) {
+  var operand = String(value);
+
+  if (!operand || !operand.match(/^(-)?[0-9.]+(e(-)?[0-9]+)?$/i) || operand.replace(/[-0-9e]/gi, '').length > 1) {
+    throw new Error('Invalid ' + name + ': ' + value);
+  }
+
+  return Number(value);
+}
+
 exports.calculate = function(req, res) {
   req.app.use(function(err, _req, res, next) {
     if (res.headersSent) {
@@ -10,7 +20,6 @@ exports.calculate = function(req, res) {
     res.json({ error: err.message });
   });
 
-  // TODO: Add operator
   var operations = {
     'add':      function(a, b) { return Number(a) + Number(b) },
     'subtract': function(a, b) { return a - b },
@@ -28,17 +37,8 @@ exports.calculate = function(req, res) {
     throw new Error("Invalid operation: " + req.query.operation);
   }
 
-  if (!req.query.operand1 ||
-      !req.query.operand1.match(/^(-)?[0-9\.]+(e(-)?[0-9]+)?$/) ||
-      req.query.operand1.replace(/[-0-9e]/g, '').length > 1) {
-    throw new Error("Invalid operand1: " + req.query.operand1);
-  }
+  var operand1 = parseOperand(req.query.operand1, 'operand1');
+  var operand2 = parseOperand(req.query.operand2, 'operand2');
 
-  if (!req.query.operand2 ||
-      !req.query.operand2.match(/^(-)?[0-9\.]+(e(-)?[0-9]+)?$/) ||
-      req.query.operand2.replace(/[-0-9e]/g, '').length > 1) {
-    throw new Error("Invalid operand2: " + req.query.operand2);
-  }
-
-  res.json({ result: operation(req.query.operand1, req.query.operand2) });
+  res.json({ result: operation(operand1, operand2) });
 };

@@ -3,47 +3,46 @@
     <title>Calculator</title>
     <link rel="stylesheet" href="default.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <script src="client.js"></script>
+    <meta charset="utf-8">
+    <script src="client.js" defer></script>
   </head>
-  <body onLoad="setValue(0)">
-    <div class="container">
+  <body>
+    <main class="container" aria-label="Calculator">
       <div id="results">
-        <div id="result"><span class="digit0">0</span></div>
+        <div id="result" role="status" aria-live="polite" aria-label="Calculation result"><span class="digit0">0</span></div>
       </div>
 
       <div id="loading" style="visibility:hidden"></div>
 
       <div class="box">
-        <div class="calculator">
+        <div class="calculator" aria-label="Calculator keypad">
           <div class="calculator-buttons">
-            <button class="btn span-2"></button>
-            <button class="btn" onClick="clearPressed()">C</button>
-            <button class="btn" onClick="clearPressed()">CE</button>
+            <button class="btn span-2" aria-hidden="true" tabindex="-1" disabled></button>
+            <button class="btn" aria-label="Clear" onClick="clearPressed()">C</button>
+            <button class="btn" aria-label="Clear entry" onClick="clearEntryPressed()">CE</button>
 
-            <button class="btn" onClick="numberPressed(7)">7</button>
-            <button class="btn" onClick="numberPressed(8)">8</button>
-            <button class="btn" onClick="numberPressed(9)">9</button>
-            <button class="btn" onClick="operationPressed('/')">&divide;</button>
+            <button class="btn" aria-label="7" onClick="numberPressed(7)">7</button>
+            <button class="btn" aria-label="8" onClick="numberPressed(8)">8</button>
+            <button class="btn" aria-label="9" onClick="numberPressed(9)">9</button>
+            <button class="btn" aria-label="Divide" onClick="operationPressed('/')">&divide;</button>
 
-            <button class="btn" onClick="numberPressed(4)">4</button>
-            <button class="btn" onClick="numberPressed(5)">5</button>
-            <button class="btn" onClick="numberPressed(6)">6</button>
-            <button class="btn" onClick="operationPressed('*')">x</button>
+            <button class="btn" aria-label="4" onClick="numberPressed(4)">4</button>
+            <button class="btn" aria-label="5" onClick="numberPressed(5)">5</button>
+            <button class="btn" aria-label="6" onClick="numberPressed(6)">6</button>
+            <button class="btn" aria-label="Multiply" onClick="operationPressed('*')">x</button>
 
-            <button class="btn" onClick="numberPressed(1)">1</button>
-            <button class="btn" onClick="numberPressed(2)">2</button>
-            <button class="btn" onClick="numberPressed(3)">3</button>
-            <button class="btn" onClick="operationPressed('-')">-</button>
+            <button class="btn" aria-label="1" onClick="numberPressed(1)">1</button>
+            <button class="btn" aria-label="2" onClick="numberPressed(2)">2</button>
+            <button class="btn" aria-label="3" onClick="numberPressed(3)">3</button>
+            <button class="btn" aria-label="Subtract" onClick="operationPressed('-')">-</button>
 
-            <button class="btn" onClick="numberPressed(0)">0</button>
-            <button class="btn" onClick="decimalPressed()">.</button>
-            <button class="btn" onClick="operationPressed('+')">+</button>
-            <button class="btn" onClick="equalPressed()">=</button>
-
-            <!-- TODO: Buttons -->
+            <button class="btn" aria-label="0" onClick="numberPressed(0)">0</button>
+            <button class="btn" aria-label="Decimal point" onClick="decimalPressed()">.</button>
+            <button class="btn" aria-label="Add" onClick="operationPressed('+')">+</button>
+            <button class="btn" aria-label="Equals" onClick="equalPressed()">=</button>
           </div>
         </div>
       </div>
-    </div>
+    </main>
   </body>
 </html>

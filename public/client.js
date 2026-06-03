@@ -19,7 +19,6 @@ var operation = null;
 function calculate(operand1, operand2, operation) {
     var uri = location.origin + "/arithmetic";
 
-    // TODO: Add operator
     switch (operation) {
         case '+':
             uri += "?operation=add";
@@ -69,7 +68,14 @@ function clearPressed() {
 
 function clearEntryPressed() {
     setValue(0);
-    state = (state == states.operand2) ? states.operator : states.start;
+
+    if (state == states.operand2 || state == states.complete) {
+        state = states.operator;
+    } else {
+        state = states.start;
+        operand1 = 0;
+        operation = null;
+    }
 }
 
 function numberPressed(n) {
@@ -81,7 +87,7 @@ function numberPressed(n) {
     } else if (state == states.operator) {
         value = n;
         state = (n == '0' ? states.operator : states.operand2);
-    } else if (value.replace(/[-\.]/g, '').length < 8) {
+    } else if (value.replace(/[-.]/g, '').length < 8) {
         value += n;
     }
 
@@ -99,14 +105,6 @@ function decimalPressed() {
         state = states.operand2;
     } else if (!getValue().toString().includes('.')) {
         setValue(getValue() + '.');
-    }
-}
-
-function signPressed() {
-    var value = getValue();
-
-    if (value != 0) {
-        setValue(-1 * value);
     }
 }
 
@@ -132,16 +130,30 @@ function equalPressed() {
     calculate(operand1, operand2, operation);
 }
 
-// TODO: Add key press logics
-document.addEventListener('keypress', (event) => {
-    if (event.key.match(/^\d+$/)) {
-        numberPressed(event.key);
-    } else if (event.key == '.') {
+document.addEventListener('keydown', function (event) {
+    var key = event.key;
+
+    if (/^\d$/.test(key)) {
+        numberPressed(key);
+        event.preventDefault();
+    } else if (key === '.') {
         decimalPressed();
-    } else if (event.key.match(/^[-*+/]$/)) {
-        operationPressed(event.key);
-    } else if (event.key == '=') {
+        event.preventDefault();
+    } else if (/^[-*+/]$/.test(key)) {
+        operationPressed(key);
+        event.preventDefault();
+    } else if (key === '=' || key === 'Enter') {
         equalPressed();
+        event.preventDefault();
+    } else if (key === '%') {
+        operationPressed(key);
+        event.preventDefault();
+    } else if (key === 'Backspace') {
+        clearEntryPressed();
+        event.preventDefault();
+    } else if (key === 'Escape') {
+        clearPressed();
+        event.preventDefault();
     }
 });
 
@@ -181,7 +193,7 @@ function setValue(n) {
     document.getElementById("result").innerHTML = html;
 }
 
-function setError(n) {
+function setError() {
     document.getElementById("result").innerHTML = "ERROR";
 }
 
@@ -192,9 +204,13 @@ function setLoading(loading) {
         document.getElementById("loading").style.visibility = "hidden";
     }
 
-    var buttons = document.querySelectorAll("BUTTON");
+    var buttons = document.querySelectorAll("button");
 
     for (var i = 0; i < buttons.length; i++) {
         buttons[i].disabled = loading;
     }
 }
+
+window.addEventListener('DOMContentLoaded', function () {
+    setValue(0);
+});

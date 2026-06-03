@@ -1,58 +1,65 @@
-# GitHub Copilot Workshop
-
-## Enhance a Node Calculator app using GitHub Copilot
+# GitHub Copilot Lab: Node Calculator
 
 <img width="400" alt="Node Calculator image" src="./assets/Node%20calculator%20image.png">
 
-In this fun workshop, you will learn how to use GitHub Copilot to enhance a node-based Calculator, with little to no coding experience required.
+This repository is a workshop-ready Node.js calculator app used to practice modern GitHub Copilot workflows in VS Code.
 
-The project contains a simple node.js application that exposes REST APIs to perform arithmetic on integers, and provides a test suite with mocha and chai.
+The app includes:
 
-Estimated time to complete: `10 to 60 minutes`
+- an Express API route at `/arithmetic`
+- a browser-based calculator UI
+- Mocha/Chai/Supertest integration tests
+- workshop guides in the `.instructions` folder
 
-Participants will be guided to install the GitHub Copilot VS Code extension, and then use it to enhance a simple Node Calculator app. You will also use GitHub Copilot to write some missing unit tests for the Calculator app.
+Estimated workshop time: `30-90 minutes`
 
+## Quick Start
 
-## Instructions 
+### Prerequisites
 
-Inside the `.instructions` folder you will find a number of markdown files that contain the instructions for this workshop.
+- Node.js `18+` (Node `20` or `22` recommended)
+- npm
+- VS Code with `GitHub Copilot` and `GitHub Copilot Chat`
+
+### Install and run
+
+```bash
+npm install
+npm run dev
+```
+
+Then open `http://localhost:3000`.
+
+### Validate the project
+
+```bash
+npm run typecheck
+npm run lint
+npm test
+```
+
+## Workshop Guides
+
+Workshop content lives in `.instructions`:
 
 Filename | Description
 --- | ---
-[1. setup.md](</.instructions/1. setup.md>) | Instructions for installing the GitHub Copilot VS Code extension and joining the GitHub Copilot trial.
-[2. core exercises.md](</.instructions/2. core exercises.md>) | Instructions for the core exercise of this workshop.
-[3. challenge exercises.md](</.instructions/3. challenge exercises.md>) | Challenge exercises for participants to complete.
-[4. additional resources.md](</.instructions/4. additional resources.md>) | Additional resources for participants to explore after the workshop.
-
-
+[1. setup.md](./.instructions/1.%20setup.md) | Environment setup for local VS Code or Codespaces.
+[2. core exercises.md](./.instructions/2.%20core%20exercises.md) | Guided Copilot exercises on this calculator app.
+[3. challenge exercises.md](./.instructions/3.%20challenge%20exercises.md) | Optional extension tasks for participants.
+[4. additional resources.md](./.instructions/4.%20additional%20resources.md) | Follow-up learning resources.
+[workshop organisers.md](./.instructions/workshop%20organisers.md) | Delivery notes for facilitators.
 
 ## Project Structure
 
-In this project you will find: 
+- `api/`: arithmetic endpoint and request handling
+- `public/`: calculator UI (HTML/CSS/client logic)
+- `test/`: API test suite and reporter config
+- `.devcontainer/`: Codespaces and dev container setup
+- `.github/workflows/`: CI pipeline
 
-* the node-based Calculator application
-* a `test` folder containing MOCHA unit tests for the Calculator app
-* a devcontainer that installs GitHub Copilot when the Codespace is created (If you want to use Codespaces)
-* an `.instructions` folder all the instructions for this workshop.
-* an `assets` folder containing images used in this workshop documentation.
+## Notes
 
-
-
-## FAQ 
-
-- **How do I get a GitHub Copilot license?**
-  - You can request a trial license from your GitHub Sales representative or via Copilot for Individuals or Business licenses.
-- **How do I get a GitHub Codespaces license?**
-    - Codespaces is included with GitHub Enterprise Cloud, GitHub Enterprise Server, and GitHub Free. You can check under your [billing settings page](https://github.com/settings/billing).
-- **I am having trouble activating GitHub Copilot after I load the plugin, what should I do?**
-    - This could be because you launched your Codespace before you activated GitHub Copilot or accepted the invitation to the trial org. Please try to reload your Codespace and try again.
-
-## Acknowledgements
-
-A special thanks to the following awesome Hubbers who have contributed in many different ways to our workshops. 
-[pierluigi](https://github.com/pierluigi), [parroty](https://github.com/yuichielectric), [yuichielectric](https://github.com/yuichielectric), [dchomh](https://github.com/dchomh), [nolecram](https://github.com/nolecram), [rsymo](https://github.com/rsymo), [damovisa](https://github.com/damovisa) and anyone else I've inadvertently missed.
-
-Enjoy your workshop!
-[anthonyborton](https://github.com/anthonyborton)
-
-_v1.0 Released June, 2023_
+- `npm start` runs the app directly with Node.
+- `npm run dev` runs with `nodemon` for local development.
+- `npm test` generates coverage and inlines the HTML report for easier artifact viewing.

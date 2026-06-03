@@ -3,14 +3,18 @@ module.exports = {
         "browser": true,
         "es2021": true,
         "mocha": true,
-        "request": true
+        "node": true
     },
     "extends": "eslint:recommended",
     "overrides": [
     ],
+    "globals": {
+        "request": "readonly",
+        "expect": "readonly"
+    },
     "parserOptions": {
         "ecmaVersion": "latest",
-        "sourceType": "module"
+        "sourceType": "script"
     },
     "rules": {
     }
